@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+public class KdTree{
+
+	public static long nonDecreasing(int n)
+	{
+		long[][] dp = new long[n][10];
+		long sum = 0;
+		long sumPrev = 0; 
+		for (int i = 0; i < dp.length; i++) 
+		{
+			sumPrev = sum;
+			sum = 0;
+			for (int j = 0; j < dp[0].length; j++)
+			{
+				if(i == 0)
+					dp[i][j] = 10-j;
+				else
+				{
+					dp[i][j] = sumPrev;
+					sumPrev = dp[i][j] - dp[i-1][j];
+				}
+				sum += dp[i][j];
+			}
+		}
+		return dp[n-1][0];
+	}
+	public static void main(String[] args) {
+		/* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+		Scanner in = new Scanner(System.in);
+		int n = Integer.parseInt(in.nextLine());
+		System.out.println(nonDecreasing(n));
+
+	
+
+	 
+	}
+}
